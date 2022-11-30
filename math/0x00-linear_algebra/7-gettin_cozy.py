@@ -6,7 +6,11 @@ def cat_matrices2D(mat1, mat2, axis=0):
     """concatenates two matrices along a specific axis"""
     res = []
     if axis == 0:
-        return mat1 + mat2
-    for i in range(len(mat1)):
-        res.append(mat1[i] + mat2[i])
+        for i in mat1:
+            res.append(i.copy())
+        for i in mat2:
+            res.append(i.copy())
+    if axis == 1:
+        for i in range(len(mat1)):
+            res.append(mat1[i] + mat2[i])
     return res
