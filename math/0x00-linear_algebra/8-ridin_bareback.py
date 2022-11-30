@@ -15,4 +15,4 @@ def mat_mul(mat1, mat2):
                 sum += mat1[i].copy()[k] * mat2[k].copy()[j]
             row.append(sum)
         res.append(row)
-    return res.copy()
+    return res
