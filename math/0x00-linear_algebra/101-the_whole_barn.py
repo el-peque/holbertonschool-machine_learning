@@ -8,16 +8,11 @@ def add_matrices(mat1, mat2):
     mat1_shape, mat2_shape = matrix_shape(mat1), matrix_shape(mat2)
     if not mat1_shape or not mat2_shape or mat1_shape != mat2_shape:
         return None
-    mat3 = mat1.copy()
-    for i in range(mat1_shape[0]):
-        if len(mat1_shape) > 1:
-            for j in range(mat1_shape[1]):
-                if len(mat1_shape) > 2:
-                    for k in range(mat1_shape[2]):
-                        mat3[i][j][k] += mat2.copy()[i][j][k]
-                else:
-                    mat3[i][j] += mat2.copy()[i][j]
-        else:
-            mat3[i] += mat2.copy()[i]
-
+    mat3 = []
+    if len(mat1_shape) == 1:
+        for i in range(len(mat1)):
+            mat3.append(mat1[i] + mat2[i])
+    else:
+        for i in range(len(mat1)):
+            mat3.append(add_matrices(mat1[i], mat2[i]))
     return mat3
