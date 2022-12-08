@@ -7,6 +7,6 @@ def summation_i_squared(n):
     the first n positive integers"""
     if not n or not isinstance(n, int) or n < 0:
         return None
-    if n == 0:
-        return 0
+    if n == 1:
+        return 1
     return (n**2 + summation_i_squared(n - 1))
