@@ -6,16 +6,17 @@ def poly_integral(poly, C=0):
     """calculates the integral of a polynomial"""
     if not poly or not isinstance(poly, list):
         return None
-    if not isinstance(C, int) and not isinstance(C, float):
+    if not isinstance(C, (int, float)):
         return None
 
-    integral = [C]
+    integral = []
     for coeff in range(len(poly)):
         num = poly[coeff] / (coeff + 1)
         if num % 1 == 0:
             num = int(num)
         integral.append(num)
 
+    integral = [C]
     while len(integral) > 0 and integral[-1] == 0:
         integral.pop()
 
