@@ -5,7 +5,7 @@
 def summation_i_squared(n):
     """calculates the sum of the squares of
     the first n positive integers"""
-    if not n or type(n) not int or n <= 0:
+    if not n or not isinstance(n, int) or n < 0:
         return None
     if n == 0:
         return 0
