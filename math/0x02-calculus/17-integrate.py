@@ -9,7 +9,7 @@ def poly_integral(poly, C=0):
     if not isinstance(C, int) and not isinstance(C, float):
         return None
 
-    integral = [0]
+    integral = [C]
     for coeff in range(len(poly)):
         num = poly[coeff] / (coeff + 1)
         if num % 1 == 0:
