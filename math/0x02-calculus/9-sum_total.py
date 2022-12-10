@@ -6,7 +6,7 @@ import sys
 def summation_i_squared(n):
     """calculates the sum of the squares of
     the first n positive integers"""
-    sys.setrecursionlimit(3000)
+    sys.setrecursionlimit(10000)
 
     if not isinstance(n, int) or n < 1:
         return None
