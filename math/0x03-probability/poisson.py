@@ -10,7 +10,7 @@ class Poisson:
     def __init__(self, data=None, lambtha=1.):
         """Initiates poisson"""
         if data is None:
-            self.lambtha = lambtha
+            self.lambtha = float(lambtha)
         elif lambtha <= 0:
             raise ValueError("lambtha must be a positive value")
         else:
@@ -23,7 +23,13 @@ class Poisson:
     def pmf(self, k):
         """Calculates the value of the PMF
         for a given number of 'successes'"""
-        from math import factorial
         k = int(k)
         λ = self.lambtha
-        return ((self.e ** (-λ)) * (λ ** k) / factorial(k))
+        return ((self.e ** (-λ)) * (λ ** k) / Poisson.factorial(k))
+
+    @staticmethod
+    def factorial(n):
+        if n == 1:
+            return 1
+        else:
+            return (n * Poisson.factorial(n - 1))
