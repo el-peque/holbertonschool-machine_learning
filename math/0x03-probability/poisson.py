@@ -2,7 +2,7 @@
 """class Poisson"""
 
 
-class Poisson():
+class Poisson:
     """Represents a poisson distribution"""
     def __init__(self, data=None, lambtha=1.):
         """Initiates poisson"""
@@ -13,6 +13,6 @@ class Poisson():
         else:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(set(data)) < 2:
                 raise ValueError("data must contain multiple values")
             self.lambtha = sum(data) / len(data)
