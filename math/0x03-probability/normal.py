@@ -4,7 +4,7 @@
 
 class Normal:
     """Represents a normal distribution"""
-    π = 3.1415926536
+    pi = 3.1415926536
     e = 2.7182818285
 
     def __init__(self, data=None, mean=0., stddev=1.):
@@ -24,6 +24,24 @@ class Normal:
             stddev = stddev ** 0.5
             self.stddev = stddev
 
+    def z_score(self, x):
+        """Calculates the z-score of a given x-value"""
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """Calculates the x-value of a given z-score"""
+        return (z * self.stddev) + self.mean
+
+    def pdf(self, x):
+        """Calculates the value of the PDF for a given x-value"""
+        res = (1 / ((2 * self.pi * (self.stddev ** 2)) ** 0.5))
+        res *= self.e ** ((-1 / 2) * ((((x - self.mean) / self.stddev)) ** 2))
+        return res
+
+    def cdf(self, x):
+        """Calculates the value of the CDF for a given x-value"""
+        return (1 - (self.e ** (-self.lambtha * x)))
+
     def pmf(self, k):
         """Calculates the value of the PMF
         for a given number of 'successes'"""
@@ -33,14 +51,6 @@ class Normal:
 
         λ = self.lambtha
         return ((self.e ** (-λ)) * (λ ** k) / Poisson.factorial(k))
-
-    def cdf(self, k):
-        """Calculates the value of the CDF for a given number of “successes”"""
-        k = int(k)
-        if k < 0:
-            return 0
-        cdf = sum([self.pmf(i) for i in range(k + 1)])
-        return cdf
 
     @staticmethod
     def factorial(n):
