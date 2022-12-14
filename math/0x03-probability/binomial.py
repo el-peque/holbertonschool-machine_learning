@@ -22,7 +22,11 @@ class Binomial:
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
             self.p = (sum(data) / len(data) ** 2) * 2
-            self.n = round(len(data) / 2)
+            self.n = round((sum(data) / self.p) / len(data))
+            if not isinstance(self.n, int) or self.n <= 0:
+                raise ValueError('n must be a positive integer')
+            if not (0 < self.p < 1):
+                raise ValueError('p must be greater than 0 and less than 1')
 
     def z_score(self, x):
         """Calculates the z-score of a given x-value"""

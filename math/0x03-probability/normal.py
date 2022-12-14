@@ -40,22 +40,9 @@ class Normal:
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given x-value"""
-        return (1 - (self.e ** (-self.lambtha * x)))
-
-    def pmf(self, k):
-        """Calculates the value of the PMF
-        for a given number of 'successes'"""
-        k = int(k)
-        if k < 0:
-            return 0
-
-        λ = self.lambtha
-        return ((self.e ** (-λ)) * (λ ** k) / Poisson.factorial(k))
+        mean, stddev = self.mean, self.stddev
+        return 0.5 * (1 + self.erf((x - mean) / (stddev * (2 ** 0.5))))
 
     @staticmethod
-    def factorial(n):
-        """Calculates the factorial of a number"""
-        if n <= 1:
-            return 1
-        else:
-            return (n * Poisson.factorial(n - 1))
+    def erf(x):
+        """Calculates the error function of x"""
