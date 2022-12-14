@@ -30,10 +30,18 @@ class Poisson:
         λ = self.lambtha
         return ((self.e ** (-λ)) * (λ ** k) / Poisson.factorial(k))
 
+    def cdf(self, k):
+        """Calculates the value of the CDF for a given number of “successes”"""
+        k = int(k)
+        if k < 0:
+            return 0
+        cdf = sum([self.pmf(i) for i in range(k + 1)])
+        return cdf
+
     @staticmethod
     def factorial(n):
         """Calculates the factorial of a number"""
-        if n == 1:
+        if n <= 1:
             return 1
         else:
             return (n * Poisson.factorial(n - 1))
