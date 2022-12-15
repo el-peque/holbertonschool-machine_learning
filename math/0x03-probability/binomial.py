@@ -30,8 +30,8 @@ class Binomial:
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given number of “successes”"""
-        k = int(k)
-        if k < 0:
+        x = int(x)
+        if x < 0:
             return 0
         return sum([self.pmf(i) for i in range(x + 1)])
 
