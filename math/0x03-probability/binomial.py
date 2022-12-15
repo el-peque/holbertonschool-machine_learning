@@ -21,8 +21,12 @@ class Binomial:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            self.p = float((sum(data) / len(data) ** 2) * 2)
-            self.n = round((sum(data) / self.p) / len(data))
+
+            mean = sum(data) / len(data)
+            var = sum([(x - mean) ** 2 for x in data]) / len(data)
+            self.p = ((1 - (var / mean)))
+            self.n = round(mean / self.p)
+            self.p = float(mean / self.n)
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given number of “successes”"""
