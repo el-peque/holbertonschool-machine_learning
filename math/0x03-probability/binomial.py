@@ -25,13 +25,14 @@ class Binomial:
             self.n = round((sum(data) / self.p) / len(data))
 
     def cdf(self, x):
-        """Calculates the value of the CDF
-        for a given number of “successes”"""
+        """Calculates the value of the CDF for a given number of “successes”"""
+        k = int(k)
+        if k < 0:
+            return 0
         return sum([self.pmf(i) for i in range(x + 1)])
 
     def pmf(self, k):
-        """Calculates the value of the PMF
-        for a given number of 'successes'"""
+        """Calculates the value of the PMF for a given number of 'successes'"""
         k = int(k)
         if k < 0:
             return 0
