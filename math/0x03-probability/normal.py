@@ -46,3 +46,7 @@ class Normal:
     @staticmethod
     def erf(x):
         """Calculates the error function of x"""
+        return (2 / (Normal.pi ** (0.5))) * (x - ((x ** 3)/3) +
+                                                 ((x ** 5)/10) -
+                                                 ((x ** 7)/42) +
+                                                 ((x ** 9)/216))
