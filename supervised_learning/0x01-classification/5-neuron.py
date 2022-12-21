@@ -44,13 +44,15 @@ class Neuron:
 
     def evaluate(self, X, Y):
         """Evaluates the neuron’s predictions"""
-        A = np.where(self.forward_prop(X) >= 0.5, 1, 0)
-        cost = self.cost(Y, self.forward_prop(X))
-        return A, cost
+        A = self.forward_prop(X)
+        pred = np.where(A >= 0.5, 1, 0)
+        cost = self.cost(Y, A)
+        return pred, cost
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """Calculates one pass of gradient descent on the neuron"""
+        m = Y.shape[1]
         dZ = A - Y
-        dW = np.matmul(dZ, X.T)
+        dW = (np.matmul(dZ, X.T)) / m
         self.__W = self.W - alpha * dW
-        self.__b = np.sum(self.b - alpha * dZ) / dZ.shape[1]
+        self.__b = np.sum(self.b - alpha * dZ) / m
