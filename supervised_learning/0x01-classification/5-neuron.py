@@ -32,7 +32,7 @@ class Neuron:
 
     def forward_prop(self, X):
         """Calculates the forward propagation of the neuron"""
-        z = (np.dot(self.W, X) + self.b)
+        z = (np.matmul(self.W, X) + self.b)
         self.__A = 1/(1 + np.exp(-z))
         return self.A
 
@@ -51,6 +51,6 @@ class Neuron:
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """Calculates one pass of gradient descent on the neuron"""
         dZ = A - Y
-        dW = np.dot(dZ, X.T)
+        dW = np.matmul(dZ, X.T)
         self.__W = self.W - alpha * dW
         self.__b = np.sum(self.b - alpha * dZ) / dZ.shape[1]

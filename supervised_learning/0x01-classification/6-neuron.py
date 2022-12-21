@@ -39,11 +39,35 @@ class Neuron:
     def cost(self, Y, A):
         """Calculates the cost of the model using logistic regression"""
         m = Y.shape[1]
-        cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+        cost = -(np.sum((Y * np.log(A)) + (1 - Y) * np.log(1.0000001 - A)) / m)
         return cost
 
     def evaluate(self, X, Y):
         """Evaluates the neuron’s predictions"""
-        A = np.where(self.forward_prop(X) >= 0.5, 1, 0)
-        cost = self.cost(Y, self.forward_prop(X))
-        return A, cost
+        A = self.forward_prop(X)
+        pred = np.where(A >= 0.5, 1, 0)
+        cost = self.cost(Y, A)
+        return pred, cost
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        """Calculates one pass of gradient descent on the neuron"""
+        m = Y.shape[1]
+        dZ = A - Y
+        dW = (np.matmul(dZ, X.T)) / m
+        self.__W = self.W - alpha * dW
+        self.__b = np.sum(self.b - alpha * dZ) / m
+
+    def train(self, X, Y, iterations=5000, alpha=0.05):
+        """Trains the neuron"""
+        if not isinstance(iterations, int):
+            raise TypeError("iterations must be an integer")
+        if iterations <= 0:
+            raise ValueError("iterations must be a positive integer")
+        if not isinstance(alpha, float):
+            raise TypeError("alpha must be a float")
+        if alpha <= 0:
+            raise ValueError("alpha must be positive")
+        for i in range(iterations):
+            A = self.forward_prop(X)
+            self.gradient_descent(X, Y, A, alpha)
+        return self.evaluate(X, Y)
