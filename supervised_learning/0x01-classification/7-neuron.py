@@ -79,7 +79,7 @@ class Neuron:
                 raise ValueError("step must be positive and <= iterations")
         costs = []
         #A = self.forward_prop(X)
-        for i in range(iterations):
+        for i in range(iterations + 1):
             A = self.forward_prop(X)
             self.gradient_descent(X, Y, A, alpha)
             if i % step == 0 or i == 0 or i == iterations:
@@ -88,14 +88,11 @@ class Neuron:
                     print(f"Cost after {i} iterations: {cost}")
                 if graph is True:
                     costs.append(cost)
-        if verbose is True:
-            cost = self.cost(Y, A)
-            print(f"Cost after {i + 1} iterations: {cost}")
-        print()
-        print(f"Time: {time_1 - time_0}")
-        print()
+        #if verbose is True:
+            #cost = self.cost(Y, A)
+            #print(f"Cost after {i + 1} iterations: {cost}")
         if graph is True:
-            costs.append(cost)
+            #costs.append(cost)
             plt.plot(np.arange(0, iterations + 1, step), costs, 'b-')
             plt.xlabel("iteration")
             plt.ylabel("cost")
