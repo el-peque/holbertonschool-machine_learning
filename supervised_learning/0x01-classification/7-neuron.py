@@ -2,9 +2,6 @@
 """Class Neuron"""
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use("TkAgg")
-import time
 
 
 class Neuron:
@@ -78,8 +75,7 @@ class Neuron:
             if step <= 0 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
         costs = []
-        #A = self.forward_prop(X)
-        for i in range(iterations + 1):
+        for i in range(iterations):
             A = self.forward_prop(X)
             self.gradient_descent(X, Y, A, alpha)
             if i % step == 0 or i == 0 or i == iterations:
@@ -88,14 +84,14 @@ class Neuron:
                     print(f"Cost after {i} iterations: {cost}")
                 if graph is True:
                     costs.append(cost)
-        #if verbose is True:
-            #cost = self.cost(Y, A)
-            #print(f"Cost after {i + 1} iterations: {cost}")
+        pred, cost = self.evaluate(X, Y)
+        if verbose is True:
+            print(f"Cost after {i + 1} iterations: {cost}")
         if graph is True:
-            #costs.append(cost)
+            costs.append(cost)
             plt.plot(np.arange(0, iterations + 1, step), costs, 'b-')
             plt.xlabel("iteration")
             plt.ylabel("cost")
             plt.title("Training cost")
             plt.show()
-        return self.evaluate(X, Y)
+        return pred, cost
