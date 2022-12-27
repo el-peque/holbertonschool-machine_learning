@@ -30,5 +30,5 @@ class DeepNeuralNetwork:
                 f1 = np.random.randn(layers[layer], layers[layer-1])
                 f2 = np.sqrt(2/layers[layer-1])
                 weight = f1 * f2
-            self.weights.update({f"b{layer + 1}": b})
-            self.weights.update({f"W{layer + 1}": weight})
+            self.weights["b" + str(layer + 1)] = b
+            self.weights["W" + str(layer + 1)] = weight
