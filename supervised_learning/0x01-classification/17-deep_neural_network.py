@@ -17,12 +17,12 @@ class DeepNeuralNetwork:
             raise ValueError("nx must be a positive integer")
         if not isinstance(layers, list) or layers == []:
             raise TypeError("layers must be a list of positive integers")
-        if not all(isinstance(i, int) and i > 0 for i in layers):
-            raise TypeError("layers must be a list of positive integers")
         self.__L = len(layers)
         self.__cache = {}
         self.__weights = {}
         for layer in range(len(layers)):
+            if layer[layer] < 1:
+                raise TypeError("layers must be a list of positive integers")
             b = np.zeros((layers[layer], 1))
             self.__weights.update({f"b{layer + 1}": b})
             if layer == 0:
