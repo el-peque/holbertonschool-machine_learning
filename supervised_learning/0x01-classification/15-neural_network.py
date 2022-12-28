@@ -81,7 +81,6 @@ class NeuralNetwork:
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """Calculates one pass of gradient descent on the neural network"""
         m = Y.shape[1]
-        A1, A2 = self.forward_prop(X)
         dZ2 = A2 - Y
         dW2 = np.matmul(dZ2, A1.T) / m
         db2 = np.sum(dZ2, axis=1, keepdims=True) / m
