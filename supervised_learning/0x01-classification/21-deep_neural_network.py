@@ -81,14 +81,14 @@ class DeepNeuralNetwork:
         m = Y.shape[1]
         weights = self.weights.copy()
         for i in range(self.L, 0, -1):
-            A = cache['A{}'.format(i)]
+            A = cache['A' + str(i)]
             if i == self.L:
                 dz = A - Y
             else:
                 dz = np.multiply(np.matmul(
-                    (self.weights['W{}'.format(i + 1)]).T, dz),
-                    A * (1 - A))
-            dW = np.matmul(dz, cache['A{}'.format(i - 1)].T) / m
+                     (weights['W' + str(i + 1)]).T, dz),
+                     A * (1 - A))
+            dW = np.matmul(dz, cache['A' + str(i - 1)].T) / m
             db = np.sum(dz, axis=1, keepdims=True) / m
             self.__weights['W' + str(i)] = weights['W' + str(i)] - alpha * dW
             self.__weights['b' + str(i)] = weights['b' + str(i)] - alpha * db
