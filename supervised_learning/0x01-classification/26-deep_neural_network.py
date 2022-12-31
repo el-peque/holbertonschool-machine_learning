@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Class DeepNeuralNetwork"""
 import numpy as np
-import matplotlib.pyplot as plt
-import pickle
 
 
 class DeepNeuralNetwork:
@@ -127,6 +125,7 @@ class DeepNeuralNetwork:
         if verbose is True:
             print(f"Cost after {i + 1} iterations: {cost}")
         if graph is True:
+            import matplotlib.pyplot as plt
             costs.append(cost)
             plt.plot(np.arange(0, iterations + 1, step), costs, "b-")
             plt.xlabel("iteration")
@@ -138,6 +137,7 @@ class DeepNeuralNetwork:
 
     def save(self, filename):
         """Saves the instance object to a file in pickle format"""
+        import pickle
         if not isinstance(filename, str):
             return None
         if filename[-4:] != '.pkl':
@@ -148,6 +148,7 @@ class DeepNeuralNetwork:
     @staticmethod
     def load(filename):
         """Loads a pickled DeepNeuralNetwork object"""
+        import pickle
         try:
             with open(filename, 'rb') as f:
                 obj = pickle.load(f)
