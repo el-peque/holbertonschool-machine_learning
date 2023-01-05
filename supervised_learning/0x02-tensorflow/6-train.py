@@ -10,11 +10,14 @@ import tensorflow.compat.v1 as tf
 
 def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, iterations, save_path="/tmp/model.ckpt"):
     """Builds, trains, andº saves a neural network classifier"""
+    saver = tf.train.Saver(filename=save_path)
+    sess = tf.Session()
+    x = create_placeholders(Y_valid.shape[0], Y_valid.shape[1])
+    y = create_placeholders(Y_valid.shape[0], Y_valid.shape[1])
     for i in range(iterations):
-        a = forward_prop(X_train, layer_sizes, activations)
-        loss = calculate_loss(a, Y_train)
-        #gradient_descent = create_train_op(loss, alpha)
-        #weights = gradient_descent(Y_train, a)
-        #with tf.Session() as sess:  print(loss.eval()) 
-        #print(loss.value)
-
+        y_pred = forward_prop(X_train, layer_sizes, activations)
+        loss = calculate_loss(Y_train, y_pred)
+        train_op = create_train_op(loss, alpha)
+        sess.run(train_op)
+        if i % alpha == 0:
+            saver.save(sess, save_path, global_step=i) 
