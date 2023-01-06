@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import tensorflow.compat.v1 as tf
 """Layers"""
+import tensorflow.compat.v1 as tf
 
 
 def create_layer(prev, n, activation):
