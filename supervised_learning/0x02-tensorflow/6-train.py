@@ -30,10 +30,10 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
                 v_accuracy = sess.run(accuracy,
                                       feed_dict={x: X_valid, y: Y_valid})
                 print("After {} iterations:".format(i))
-                print("Training Cost: {}".format(t_cost))
-                print("Training Accuracy: {}".format(t_accuracy))
-                print("Validation Cost: {}".format(v_cost))
-                print("Validation Accuracy: {}".format(v_accuracy))
+                print("\tTraining Cost: {}".format(t_cost))
+                print("\tTraining Accuracy: {}".format(t_accuracy))
+                print("\tValidation Cost: {}".format(v_cost))
+                print("\tValidation Accuracy: {}".format(v_accuracy))
 
             if i == iterations:
                 break
