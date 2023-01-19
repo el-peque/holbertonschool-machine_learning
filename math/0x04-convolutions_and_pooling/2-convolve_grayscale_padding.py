@@ -7,7 +7,7 @@ def convolve_grayscale_padding(images, kernel, padding):
     """Performs a convolution on grayscale images with custom padding"""
     m, h, w = images.shape
     kh, kw = kernel.shape
-    ph, pw = padding.shape
+    ph, pw = padding
     pad_top = ph // 2
     pad_bottom = ph - pad_top
     pad_left = pw // 2
