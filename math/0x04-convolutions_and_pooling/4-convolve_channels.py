@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Convolution with Channels"""
 import numpy as np
-from time import sleep
 
 
 def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
