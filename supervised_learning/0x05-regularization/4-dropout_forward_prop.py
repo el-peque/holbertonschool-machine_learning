@@ -14,12 +14,11 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         else:
             z = np.matmul(w, A) + b
         if i == L - 1:
-            A = np.exp(z) / np.sum(np.exp(z), axis=0)
+            A = np.exp(z) / np.sum(np.exp(z), axis=0, keepdims=True)
         else:
             A = np.tanh(z)
-            rand = np.random.randn(A.shape[0], A.shape[1])
-            D = (rand < keep_prob).astype(int)
-            A = np.multiply(A, D)
-            A /= keep_prob
+            D = np.random.rand(A.shape[0], A.shape[1])
+            D = (D < keep_prob).astype(int)
+            A = (A * D) / keep_prob
         cache['A' + str(i + 1)] = A
     return cache
