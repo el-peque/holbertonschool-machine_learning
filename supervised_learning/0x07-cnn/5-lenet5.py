@@ -13,8 +13,8 @@ def lenet5(X):
                              kernel_initializer='he_normal')(X)
 
     # Max pooling layer with kernels of shape 2x2 with 2x2 strides
-    maxpool_1 = K.layers.MaxPool2D(pool_size=(2, 2),
-                                   strides=(2, 2))(conv_1)
+    maxpool_1 = K.layers.MaxPooling2D(pool_size=(2, 2),
+                                      strides=(2, 2))(conv_1)
 
     # Convolutional layer with 16 kernels of shape 5x5 with valid padding
     conv_2 = K.layers.Conv2D(filters=16,
@@ -24,8 +24,8 @@ def lenet5(X):
                              kernel_initializer='he_normal')(maxpool_1)
 
     # Max pooling layer with kernels of shape 2x2 with 2x2 strides
-    maxpool_2 = K.layers.MaxPool2D(pool_size=(2, 2),
-                                   strides=(2, 2))(conv_2)
+    maxpool_2 = K.layers.MaxPooling2D(pool_size=(2, 2),
+                                      strides=(2, 2))(conv_2)
     flat = K.layers.Flatten()(maxpool_2)
 
     # Fully connected layer with 120 nodes
