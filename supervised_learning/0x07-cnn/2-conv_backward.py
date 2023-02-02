@@ -30,14 +30,12 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                 for k in range(c_new):
                     r = i * sh
                     col = j * sw
-                    dA[f, r:r+kh, col:col+kw, :] += np.multiply(
-                                                        weights[:, :, :, k],
-                                                        dZ[f, i, j, k]
-                                                        )
+                    dA[f, r:r+kh, col:col+kw, :] += np.multiply(W[:, :, :, k],
+                                                                dZ[f, i, j, k])
                     dW[:, :, :, k] += np.multiply(
                                           A_prev[f, r:r+kh, col:col+kw, :],
                                           dZ[f, i, j, k]
                                           )
     if padding == 'same':
-        dA = dA[ph:-ph, pw:-pw, :]
+        dA = dA[:, ph:-ph, pw:-pw, :]
     return dA, dW, db
