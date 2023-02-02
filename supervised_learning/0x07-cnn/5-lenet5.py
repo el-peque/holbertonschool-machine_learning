@@ -45,7 +45,7 @@ def lenet5(X):
     model = K.Model(inputs=X,
                     outputs=softmax)
     model.compile(optimizer='Adam',
-                  loss=K.losses.BinaryCrossentropy(),
+                  loss='categorical_crossentropy',
                   metrics=['Accuracy'])
 
     return model
