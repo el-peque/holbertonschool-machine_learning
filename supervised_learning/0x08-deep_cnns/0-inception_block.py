@@ -5,7 +5,6 @@ import tensorflow.keras as K
 
 def inception_block(A_prev, filters):
     """Builds an inception block"""
-    print(filters)
     conv1 = K.layers.Conv2D(filters=filters[0],
                             kernel_size=(1, 1),
                             activation='relu',
