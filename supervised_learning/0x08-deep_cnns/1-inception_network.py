@@ -7,23 +7,6 @@ inception_block = __import__('0-inception_block').inception_block
 def inception_network():
     """Builds the Googlenet inception network"""
     # Configuration dicts
-    conv_1 = {'filters': 64, 'kernel_size': (7, 7),
-              'strides': (2, 2), 'activation': 'relu',
-              'padding': 'same', 'kernel_initializer': 'he_normal'}
-    maxpool_1 = {'pool_size': (3, 3), 'strides': (2, 2), 'padding': 'same'}
-    conv_2 = {'filters': 64, 'kernel_size': (1, 1),
-              'strides': (1, 1), 'activation': 'relu',
-              'padding': 'valid', 'kernel_initializer': 'he_normal'}
-    conv_3 = {'filters': 192, 'kernel_size': (3, 3),
-              'strides': (1, 1), 'activation': 'relu',
-              'padding': 'same', 'kernel_initializer': 'he_normal'}
-    conv_4 = {'filters': 64, 'kernel_size': (1, 1),
-              'strides': (1, 1), 'activation': 'relu',
-              'padding': 'same', 'kernel_initializer': 'he_normal'}
-    avgpool_1 = {'pool_size': (7, 7), 'strides': (1, 1), 'padding': 'valid'}
-    fc_1 = {'units': (1000), 'activation': 'softmax',
-            'kernel_initializer': 'he_normal'}
-
     inputs = K.Input(shape=(224, 224, 3))
     conv_1 = K.layers.Conv2D(filters=64,
                              kernel_size=(7, 7),
@@ -34,21 +17,15 @@ def inception_network():
     maxpool_1 = K.layers.MaxPooling2D(pool_size=(3, 3),
                                       strides=2,
                                       padding='same')(conv_1)
-    conv_2 = K.layers.Conv2D(filters=64,
-                             kernel_size=(1, 1),
-                             strides=1,
-                             activation='relu',
-                             padding='valid',
-                             kernel_initializer='he_normal')(maxpool_1)
-    conv_3 = K.layers.Conv2D(filters=192,
+    conv_2 = K.layers.Conv2D(filters=192,
                              kernel_size=(3, 3),
                              strides=1,
                              activation='relu',
                              padding='same',
-                             kernel_initializer='he_normal')(conv_2)
+                             kernel_initializer='he_normal')(maxpool_1)
     maxpool_2 = K.layers.MaxPooling2D(pool_size=(3, 3),
                                       strides=2,
-                                      padding='same')(conv_3)
+                                      padding='same')(conv_2)
     inception_1 = inception_block(maxpool_2, (64, 96, 128, 16, 32, 32))
     inception_2 = inception_block(inception_1, (128, 128, 192, 32, 96, 64))
     maxpool_3 = K.layers.MaxPooling2D(pool_size=(3, 3),
@@ -68,10 +45,10 @@ def inception_network():
                                         strides=1,
                                         padding='valid')(inception_9)
     dropout = K.layers.Dropout(rate=(0.4))(avgpool)
-    fc = K.layers.Dense(units=(1000),
+    softmax = K.layers.Dense(units=(1000),
                         activation='softmax',
                         kernel_initializer='he_normal')(dropout)
-    model = K.Model(inputs=inputs, outputs=fc)
+    model = K.Model(inputs=inputs, outputs=softmax)
     model.compile(optimizer=K.optimizers.Adam(),
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
