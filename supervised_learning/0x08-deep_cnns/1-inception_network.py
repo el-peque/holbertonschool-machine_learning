@@ -46,8 +46,8 @@ def inception_network():
                                         padding='valid')(inception_9)
     dropout = K.layers.Dropout(rate=(0.4))(avgpool)
     softmax = K.layers.Dense(units=(1000),
-                        activation='softmax',
-                        kernel_initializer='he_normal')(dropout)
+                             activation='softmax',
+                             kernel_initializer='he_normal')(dropout)
     model = K.Model(inputs=inputs, outputs=softmax)
     model.compile(optimizer=K.optimizers.Adam(),
                   loss='categorical_crossentropy',
