@@ -2,6 +2,7 @@
 """Transition Layer"""
 import tensorflow.keras as K
 
+
 def transition_layer(X, nb_filters, compression):
     """
     Builds a transition layer as described in
@@ -11,9 +12,7 @@ def transition_layer(X, nb_filters, compression):
     nb_filters = int(nb_filters*compression)
     conv = K.layers.Conv2D(filters=nb_filters,
                            kernel_size=(1, 1),
-                           padding='same',
                            kernel_initializer='he_normal')(batch_norm)
     avgpool = K.layers.AveragePooling2D(pool_size=(2, 2),
-                                        strides=(2, 2),
-                                        padding='same')(conv)
+                                        strides=(2, 2))(conv)
     return avgpool, nb_filters
