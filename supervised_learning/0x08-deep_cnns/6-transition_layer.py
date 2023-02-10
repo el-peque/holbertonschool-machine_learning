@@ -9,10 +9,10 @@ def transition_layer(X, nb_filters, compression):
     'Densely Connected Convolutional Networks'
     """
     batch_norm = K.layers.BatchNormalization()(X)
-    nb_filters = int(nb_filters*compression)
+    nb_filters = int(nb_filters * compression)
     conv = K.layers.Conv2D(filters=nb_filters,
                            kernel_size=(1, 1),
+                           padding='same',
                            kernel_initializer='he_normal')(batch_norm)
-    avgpool = K.layers.AveragePooling2D(pool_size=(2, 2),
-                                        strides=(2, 2))(conv)
+    avgpool = K.layers.AveragePooling2D(pool_size=2, strides=2)(conv)
     return avgpool, nb_filters
