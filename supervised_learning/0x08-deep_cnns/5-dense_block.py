@@ -21,8 +21,7 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                kernel_size=(3, 3),
                                padding='same',
                                kernel_initializer='he_normal')(relu_1)
-        concat = K.layers.concatenate([conv, X])
+        X = K.layers.concatenate([X, conv])
         nb_filters += growth_rate
-        X = concat
 
-    return concat, nb_filters
+    return X, nb_filters
