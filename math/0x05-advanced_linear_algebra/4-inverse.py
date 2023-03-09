@@ -6,8 +6,8 @@ def inverse(matrix):
     """Calculates the inverse of a matrix"""
     determinant = __import__('0-determinant').determinant
     adjugate = __import__('3-adjugate').adjugate
-    m_determinant = determinant(matrix)
     m_adjugate = adjugate(matrix)
+    m_determinant = determinant(matrix)
     if m_determinant == 0:
         return
     m_inverse = []
