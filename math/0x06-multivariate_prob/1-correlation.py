@@ -11,5 +11,7 @@ def correlation(C):
         raise ValueError("C must be a 2D square matrix")
     stdev = (np.diag(C) ** 0.5)
     D = np.diag(1 / stdev)
-    corr_M = np.dot(np.dot(D, C), D)
+    M = np.dot(np.dot(D, C), D)
+    R = np.diag(1 / (np.diag(M) ** 0.5))
+    corr_M = np.dot(np.dot(R, M), R)
     return corr_M
