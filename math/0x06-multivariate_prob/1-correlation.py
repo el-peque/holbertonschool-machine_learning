@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Correlation"""
+import numpy as np
 
 
 def correlation(C):
@@ -12,4 +13,3 @@ def correlation(C):
     D = np.diag(1 / stdev)
     corr_M = np.dot(np.dot(D, C), D)
     return corr_M
-  
