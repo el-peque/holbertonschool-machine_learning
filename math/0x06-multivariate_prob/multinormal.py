@@ -16,3 +16,10 @@ class MultiNormal:
             raise ValueError("data must contain multiple data points")
         mean, cov = mean_cov(data.T)
         self.mean, self.cov = mean.T, cov
+
+    def pdf(self, x):
+        """Calculates the PDF at a data point"""
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+        if x.ndim != 2 or x.shape[1] != 1:
+            raise ValueError("x must have the shape ({d}, 1)")
