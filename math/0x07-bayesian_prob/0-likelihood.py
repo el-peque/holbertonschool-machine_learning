@@ -19,7 +19,7 @@ def likelihood(x, n, P):
     if max(P) > 1 or min(P) < 0:
         raise ValueError("All values in P must be in the range [0, 1]")
 
-    nCx = np.math.factorial(n) / (np.math.factorial(x) * np.math.factorial(n-x))
+    nCx = np.math.factorial(n)/(np.math.factorial(x)*np.math.factorial(n-x))
     likelihood = P.copy()
     for i, p in enumerate(P):
         likelihood[i] = nCx * (p ** x) * ((1 - p) ** (n - x))

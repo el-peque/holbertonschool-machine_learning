@@ -1,5 +1,5 @@
-"""Intersection"""
 #!/usr/bin/env python3
+"""Intersection"""
 import numpy as np
 
 
@@ -25,7 +25,7 @@ def intersection(x, n, P, Pr):
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
 
-    nCx = np.math.factorial(n) / (np.math.factorial(x) * np.math.factorial(n-x))
+    nCx = np.math.factorial(n)/(np.math.factorial(x)*np.math.factorial(n-x))
     likelihood = P.copy()
     intersection = likelihood
     for i, p in enumerate(P):
