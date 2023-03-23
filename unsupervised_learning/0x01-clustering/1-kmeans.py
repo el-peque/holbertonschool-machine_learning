@@ -5,11 +5,12 @@ import numpy as np
 
 def kmeans(X, k, iterations=1000):
     """Performs K-means on a dataset"""
-    initialize = __import__('0-initialize').initialize
     if not isinstance(X, np.ndarray) or not isinstance(k, int)\
        or len(X.shape) != 2 or X.shape[0] < k or k <= 0 or iterations <= 0:
         return None
-    C = initialize(X, k)
+    min_x = np.min(X, axis=0)
+    max_x = np.max(X, axis=0)
+    C = np.random.uniform(min_x, max_x, size=(k, X.shape[1]))
     clss = np.zeros(X.shape[0],)
 
     for i in range(iterations):
@@ -18,7 +19,7 @@ def kmeans(X, k, iterations=1000):
         prev_C = C.copy()
         for j in range(k):
             if np.sum(clss == j) == 0:
-                C[j] = initialize(X, 1)
+                C = np.random.uniform(min_x, max_x, size=(k, X.shape[1]))
             else:
                 C[j] = np.mean(X[clss == j], axis=0)
 
