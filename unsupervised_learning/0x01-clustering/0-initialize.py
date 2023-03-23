@@ -5,7 +5,8 @@ import numpy as np
 
 def initialize(X, k):
     """Initializes cluster centroids for K-means"""
-    if not isinstance(X, np.ndarray) or not isinstance(k, int)\
+    if not isinstance(X, np.ndarray)\
+       or not isinstance(k, int)\
        or len(X.shape) != 2 or X.shape[0] < k:
         return None
     min_x = np.min(X, axis=0)
