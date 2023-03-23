@@ -19,7 +19,7 @@ def kmeans(X, k, iterations=1000):
         prev_C = C.copy()
         for j in range(k):
             if np.sum(clss == j) == 0:
-                C = np.random.uniform(min_x, max_x, size=(k, X.shape[1]))
+                C[j] = np.random.uniform(min_x, max_x, size=(1, X.shape[1]))
             else:
                 C[j] = np.mean(X[clss == j], axis=0)
 
