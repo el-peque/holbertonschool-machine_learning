@@ -21,8 +21,8 @@ def expectation(X, pi, m, S):
         numerator = np.multiply(dens.T, pi)
         denominator = np.sum(numerator, axis=1)
         g = numerator / denominator[:, np.newaxis]
-        l = np.sum(np.log(denominator))
+        l_ = np.sum(np.log(denominator))
 
-        return g, l
+        return g, l_
     except Exception:
         return None, None
