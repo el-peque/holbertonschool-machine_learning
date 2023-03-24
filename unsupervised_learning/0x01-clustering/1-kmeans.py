@@ -7,7 +7,7 @@ def kmeans(X, k, iterations=1000):
     """Performs K-means on a dataset"""
     if not isinstance(X, np.ndarray) or not isinstance(k, int)\
        or len(X.shape) != 2 or X.shape[0] < k or k <= 0 or iterations <= 0:
-        return None
+        return None, None
     min_vals = np.min(X, axis=0)
     max_vals = np.max(X, axis=0)
     C = np.random.uniform(low=min_vals, high=max_vals, size=(k, X.shape[1]))
