@@ -11,17 +11,20 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
        or not isinstance(kmax, int) or len(X.shape) != 2 or X.shape[0] < k\
        or k <= 0 or not isinstance(iterations, int) or iterations <= 0:
         return None, None
-    results = []
-    d_vars = []
-    min_var = 0
-    for k in range(kmin, kmax + 1):
-        C, clss = kmeans(X, k, iterations)
-        var = variance(X, C)
-        results.append((C, clss))
-        if k == kmin:
-            min_var = var
-            d_vars.append(0)
-        else:
-            d_vars.append(min_var - var)
+    try:
+        results = []
+        d_vars = []
+        min_var = 0
+        for k in range(kmin, kmax + 1):
+            C, clss = kmeans(X, k, iterations)
+            var = variance(X, C)
+            results.append((C, clss))
+            if k == kmin:
+                min_var = var
+                d_vars.append(0)
+            else:
+                d_vars.append(min_var - var)
 
-    return results, d_vars
+        return results, d_vars
+    except Exception:
+        return None, None
