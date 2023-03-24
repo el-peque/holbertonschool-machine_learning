@@ -26,6 +26,6 @@ def kmeans(X, k, iterations=1000):
                     C[j] = np.mean(X[clss == j], axis=0)
             if np.allclose(C, old_C):
                 return C, clss
-        return C, cls
+        return None, None
     except Exception:
         return None, None
