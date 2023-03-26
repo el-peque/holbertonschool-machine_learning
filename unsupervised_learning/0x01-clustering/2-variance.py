@@ -14,4 +14,4 @@ def variance(X, C):
         var = np.sum(np.min(distances, axis=0)**2)
         return var
     except Exception:
-        return None 
+        return None
