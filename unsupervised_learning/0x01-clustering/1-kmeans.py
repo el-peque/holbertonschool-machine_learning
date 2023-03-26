@@ -6,6 +6,7 @@ import numpy as np
 def kmeans(X, k, iterations=1000):
     """Performs K-means on a dataset"""
     if not isinstance(X, np.ndarray) or not isinstance(k, int)\
+       or not isinstance(iterations, int)\
        or len(X.shape) != 2 or X.shape[0] < k or k <= 0 or iterations <= 0:
         return None, None
     try:
