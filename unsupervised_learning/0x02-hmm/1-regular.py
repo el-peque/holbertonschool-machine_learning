@@ -14,7 +14,7 @@ def regular(P):
         dim = p.shape[0]
         q = (p-np.eye(dim))
         ones = np.ones(dim)
-        q = np.c_[q,ones]
+        q = np.c_[q, ones]
         QTQ = np.dot(q, q.T)
         bQT = np.ones(dim)
         return np.linalg.solve(QTQ,bQT)
