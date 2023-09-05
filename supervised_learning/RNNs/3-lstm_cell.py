@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """LSTM Cell"""
+import numpy as np
 
 
 class LSTMCell:
