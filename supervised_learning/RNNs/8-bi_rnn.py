@@ -8,28 +8,21 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     t, m, i = X.shape
     h = h_0.shape[1]
 
-    H_forward = np.zeros((t, m, h))
-    H_backward = np.zeros((t, m, h))
-    H_concatenated = np.zeros((t, m, 2 * h))
+    H = np.zeros((t, m, 2 * h))
     Y = np.zeros((t, m, bi_cell.Wy.shape[1]))
 
-    h_prev_forward = h_0
-    h_prev_backward = h_t
+    Hf = np.zeros((t, m, h))
+    Hb = np.zeros((t, m, h))
 
     for step in range(t):
         x_t = X[step]
+        h_0 = bi_cell.forward(h_0, x_t)
+        h_t = bi_cell.backward(h_t, x_t)
 
-        h_next_forward = bi_cell.forward(h_prev_forward, x_t)
-        H_forward[step] = h_next_forward
-        h_prev_forward = h_next_forward
+        Hf[step] = h_0
+        Hb[t - 1 - step] = h_t
 
-        x_t_backward = np.flip(x_t, axis=0)
-        h_next_backward = bi_cell.backward(h_prev_backward, x_t_backward)
-        H_backward[step] = h_next_backward
-        h_prev_backward = h_next_backward
+    H = np.concatenate((Hf, Hb), axis=-1)
+    Y = bi_cell.output(H)
 
-        H_concatenated[step] = np.hstack((h_next_forward, h_next_backward))
-
-        Y[step] = bi_cell.output(H_concatenated[step])
-
-    return H_concatenated, Y
+    return H, Y
